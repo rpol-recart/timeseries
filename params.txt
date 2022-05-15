@@ -1,0 +1,23 @@
+x=series['cum'].values
+x=np.expand_dims(x,(0,2))
+x=aug.jitter(x,sigma=0.1)
+#x=np.expand_dims(x,1)
+x=aug.scaling(x,sigma=0.03)
+#x=np.expand_dims(x,0)
+x=aug.magnitude_warp(x,sigma=0.1)
+#x=np.expand_dims(x,0)
+x=aug.time_warp(x,sigma=0.015,knot=2)
+#x=np.expand_dims(x,0)
+x=aug.window_slice(x,reduce_ratio=0.99)[0]
+#x=np.expand_dims(x,0)
+#x=aug.window_warp(x,window_ratio=0.02, scales=[0.3, 0.3])[0]
+
+series['all']=x
+
+series['jitter']=aug.jitter(x,sigma=0.1)[0]
+series['scaling']=aug.scaling(x)[0]
+series['scaling2']=aug.scaling(x)[0]
+series['magn_warp']=aug.magnitude_warp(x,sigma=0.05)[0]
+series['time_warp']=aug.time_warp(x,sigma=0.03,knot=4)[0]
+series['wind_slice']=aug.window_slice(x,reduce_ratio=0.99)[0]
+series['window_warp']=aug.window_warp(x,window_ratio=0.02, scales=[0.5, 0.7])[0]
